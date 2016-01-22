@@ -1,4 +1,4 @@
-Warning, this is a work in progress.
+### *Warning, this is a work in progress.*
 
 # Nullify
 Lightweight NullObject/SpecialCase implementation
@@ -21,7 +21,7 @@ public interface IDataService
 You may need to create a disconnected implementation used when the client is disconnected, and when the server is unresponsive.
 ```
  var disconnected = Null.Of<IDataService>()
-                        .Returns(x => x.IsConnected, false)
+                        .For(x => x.IsConnected).Returns(false)
                         .Create();
 // disconnected.IsConnected == false
 ```
