@@ -23,6 +23,13 @@ namespace Nullify.Configuration
             {
                 return false;
             }
+
+            var walker = new DependencyWalker(typeof(T));
+            walker.Walk();
+            if(walker.IsCircular)
+            {
+                return false;
+            }
             return true;
         }
 

@@ -29,7 +29,7 @@ namespace Nullify.Configuration
         {
             Target = target;
             ReturnValues = new Dictionary<MemberInfo, object>();
-            this.Name = DateTime.UtcNow.Ticks.ToString();
+            Name = DateTime.UtcNow.Ticks.ToString();
         }
 
 

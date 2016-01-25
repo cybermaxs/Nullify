@@ -1,17 +1,65 @@
 ﻿namespace Nullify.Tests.Interfaces
 {
-    public interface IFirstLevel
+    #region Nested deps
+    public interface INestFirstLevel
     {
-        ISecondLevel Sub { get; }
+        INestSecondLevel Sub { get; }
     }
 
-    public interface ISecondLevel
+    public interface INestSecondLevel
     {
-        IThirdLevel Sub { get; }
+        INestThirdLevel Sub { get; }
     }
 
-    public interface IThirdLevel
+    public interface INestThirdLevel
     {
 
     }
+    #endregion
+
+    #region Simple Circular
+    public interface ISimpleCircularFirstLevel
+    {
+        ISimpleCircularSecondLevel Sub { get; }
+    }
+
+    public interface ISimpleCircularSecondLevel
+    {
+        ISimpleCircularFirstLevel Sub { get; }
+    }
+    #endregion
+
+    #region Complex Circular
+    public interface IComplexCircularFirstLevel
+    {
+        IComplexCircularSecondLevel Sub { get; }
+    }
+
+    public interface IComplexCircularSecondLevel
+    {
+        IComplexCircularThirdLevel Sub { get; }
+    }
+
+    public interface IComplexCircularThirdLevel
+    {
+        IComplexCircularFirstLevel Sub { get; }
+    }
+    #endregion
+
+    #region Mix Circular
+    public interface IMixedCircularFirstLevel
+    {
+        IMixedCircularSecondLevel Sub { get; }
+    }
+
+    public interface IMixedCircularSecondLevel
+    {
+        IMixedCircularThirdLevel Sub { get; }
+    }
+
+    public interface IMixedCircularThirdLevel
+    {
+        ISimpleCircularFirstLevel Sub { get; }
+    }
+    #endregion
 }

@@ -27,16 +27,16 @@ namespace Nullify
 
             foreach (var type in types)
             {
-                AddMethods(typeBuilder, type);
-                AddEvents(typeBuilder, type);
-                AddProperties(typeBuilder, type);
+                FillMethods(typeBuilder, type);
+                FillEvents(typeBuilder, type);
+                FillProperties(typeBuilder, type);
             }
 
             var newtype = typeBuilder.CreateType();
             return newtype;
         }
 
-        private void AddProperties(TypeBuilder typeBuilder, Type nullifiedType)
+        private void FillProperties(TypeBuilder typeBuilder, Type nullifiedType)
         {
             var properties = nullifiedType.GetProperties();
 
@@ -81,7 +81,7 @@ namespace Nullify
             }
         }
 
-        private void AddEvents(TypeBuilder typeBuilder, Type nullifiedType)
+        private void FillEvents(TypeBuilder typeBuilder, Type nullifiedType)
         {
             var events = nullifiedType.GetEvents();
 
@@ -130,7 +130,7 @@ namespace Nullify
             }
         }
 
-        private void AddMethods(TypeBuilder typeBuilder, Type nullifiedType)
+        private void FillMethods(TypeBuilder typeBuilder, Type nullifiedType)
         {
             var methods = nullifiedType.GetMethods();
 
