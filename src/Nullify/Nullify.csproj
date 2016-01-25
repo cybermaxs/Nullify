@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Nullify.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +49,9 @@
     <Compile Include="TypeRegistry.cs" />
     <Compile Include="Utils\ILGen.cs" />
     <Compile Include="Utils\TypeUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Nullify.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

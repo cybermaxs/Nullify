@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Nullify</id>
+    <version>$version$</version>
+    <title>Nullify</title>
+    <authors>Cybermaxs</authors>
+    <description>Lightweight NullObject/SpecialCase implementation</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/Cybermaxs/Nullify/blob/master</projectUrl>
+    <licenseUrl>https://github.com/Cybermaxs/Nullify/license</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>Beta Release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>NullObject, Special Case, Null</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.dll" target="lib\net45" />
+    <file src="bin\Release\*.pdb" target="lib\net45" />
+    <file src="bin\Release\*.xml" target="lib\net45" />
+  </files>
+</package>
