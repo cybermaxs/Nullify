@@ -42,7 +42,7 @@ namespace Nullify.Configuration
             Target = target;
             ReturnValues = new Dictionary<MemberInfo, object>();
             NestedPolicies = new List<CreationPolicy>();
-            Name = DateTime.UtcNow.Ticks.ToString();
+            Name = new Random().Next().ToString();
         }
 
         public CreationPolicy Search(Type childType)
