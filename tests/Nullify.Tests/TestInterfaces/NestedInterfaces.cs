@@ -17,49 +17,50 @@
     }
     #endregion
 
-    #region Simple Circular
-    public interface ISimpleCircularFirstLevel
+    #region Direct Dep
+    public interface IDirectDepFirstLevel
     {
-        ISimpleCircularSecondLevel Sub { get; }
+        IDirectDepSecondLevel Sub { get; }
     }
 
-    public interface ISimpleCircularSecondLevel
+    public interface IDirectDepSecondLevel
     {
-        ISimpleCircularFirstLevel Sub { get; }
+        IDirectDepFirstLevel Sub { get; }
+    }
+    #endregion
+
+    #region TwoLevelsDeps
+    public interface ITwoLevelsDepsFirstLevel
+    {
+        ITwoLevelsDepsSecondLevel Sub { get; }
+    }
+
+    public interface  ITwoLevelsDepsSecondLevel
+    {
+        ITwoLevelsDepsThirdLevel Sub { get; }
+    }
+
+    public interface ITwoLevelsDepsThirdLevel
+    {
+        ITwoLevelsDepsFirstLevel Sub { get; }
     }
     #endregion
 
     #region Complex Circular
-    public interface IComplexCircularFirstLevel
+    public interface IComplexFirstLevel
     {
-        IComplexCircularSecondLevel Sub { get; }
+        IComplexSecondLevel Sub { get; }
     }
 
-    public interface IComplexCircularSecondLevel
+    public interface IComplexSecondLevel
     {
-        IComplexCircularThirdLevel Sub { get; }
+        IComplexThirdLevel Sub { get; }
+        IDirectDepFirstLevel SubDirect { get; }
     }
 
-    public interface IComplexCircularThirdLevel
+    public interface IComplexThirdLevel
     {
-        IComplexCircularFirstLevel Sub { get; }
-    }
-    #endregion
-
-    #region Mix Circular
-    public interface IMixedCircularFirstLevel
-    {
-        IMixedCircularSecondLevel Sub { get; }
-    }
-
-    public interface IMixedCircularSecondLevel
-    {
-        IMixedCircularThirdLevel Sub { get; }
-    }
-
-    public interface IMixedCircularThirdLevel
-    {
-        ISimpleCircularFirstLevel Sub { get; }
+        IDirectDepFirstLevel SubDirect { get; }
     }
     #endregion
 }

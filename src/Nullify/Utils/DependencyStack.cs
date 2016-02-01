@@ -2,28 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nullify
+namespace Nullify.Utils
 {
     /// <summary>
-    /// Hold a dependency stack of Ref type for a given Type.
+    /// Hold a dependency stack of a given type.
+    /// Children is a stack of all nested types.
+    /// Warning : may be circular.
     /// </summary>
-    internal class DependencyWalker
+    internal class DependencyStack
     {
-        private readonly Type parentType;
+        private readonly Type rootType;
         private readonly Stack<Type> stack = new Stack<Type>();
 
         public bool IsCircular { get; private set; }
         public IEnumerable<Type> Children { get { return stack.AsEnumerable(); } }
         public bool HasChildren { get { return stack.Count > 0; } }
 
-        public DependencyWalker(Type parentType)
+        private DependencyStack(Type root)
         {
-            this.parentType = parentType;
+            rootType = root;
+        }
+
+        public static DependencyStack Enumerate(Type parentType)
+        {
+            var stack = new DependencyStack(parentType);
+            stack.Walk();
+            return stack;
         }
 
         public void Walk()
         {
-            SubWalk(parentType);
+            SubWalk(rootType);
         }
 
         private void SubWalk(Type type)
@@ -36,7 +45,7 @@ namespace Nullify
             //get all nested properties (get only)
             type
                 .GetProperties()
-                .Where(p => p.CanRead && !p.PropertyType.IsValueType)
+                .Where(p => p.CanRead && p.PropertyType.IsInterface)
                 .Select(p => p.PropertyType)
                 .ToList()
                 .ForEach(t => flattenChildrenTypes.Add(t));
@@ -44,7 +53,7 @@ namespace Nullify
             //get all nested methods (that returns somehting)
             type
                 .GetMethods()
-                .Where(m => !m.ReturnType.IsValueType && m.ReturnType != typeof(void))
+                .Where(m => m.ReturnType.IsInterface)
                 .Select(m => m.ReturnType)
                 .ToList()
                 .ForEach(t => flattenChildrenTypes.Add(t));
@@ -68,7 +77,7 @@ namespace Nullify
             //the dependency is not parent
             foreach (var child in types)
             {
-                if (child == parentType)
+                if (child == rootType)
                     return true;
                 if (stack.Contains(child))
                     return true;

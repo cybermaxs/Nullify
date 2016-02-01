@@ -1,23 +1,25 @@
 ﻿using Nullify.Tests.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Nullify.tests
+namespace Nullify.Tests
 {
     public class NestedTests
     {
         [Fact]
-        public void Test()
+        public void BasicCreate()
         {
-            var l1 = Null.Of<INestFirstLevel>().Create();
+            var l1 = Nullified.Of<INestFirstLevel>()
+                .Create();
 
             Assert.NotNull(l1);
             Assert.NotNull(l1.Sub);
             Assert.NotNull(l1.Sub.Sub);
+
+            var l2 = Nullified.Of<INestFirstLevel>()
+                .Create();
+            Assert.NotNull(l2);
+            Assert.NotNull(l2.Sub);
+            Assert.NotNull(l2.Sub.Sub);
         }
     }
 }

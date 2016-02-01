@@ -1,16 +1,16 @@
 ﻿using Nullify.Tests.Interfaces;
+using Nullify.Utils;
 using System.Linq;
 using Xunit;
 
 namespace Nullify.tests
 {
-    public class DependencyTests
+    public class DependencyStackTests
     {
         [Fact]
         public void WhenHasNoCircular_ShouldBeOk()
         {
-            var stack = new DependencyWalker(typeof(INestFirstLevel));
-            stack.Walk();
+            var stack = DependencyStack.Enumerate(typeof(INestFirstLevel));
 
             Assert.False(stack.IsCircular);
             Assert.True(stack.Children.Count() > 0);
@@ -19,8 +19,7 @@ namespace Nullify.tests
         [Fact]
         public void WhenHasCircular_ShouldBeKo()
         {
-            var stack = new DependencyWalker(typeof(ISimpleCircularFirstLevel));
-            stack.Walk();
+            var stack = DependencyStack.Enumerate(typeof(IDirectDepFirstLevel));
 
             Assert.True(stack.IsCircular);
             Assert.Equal(0, stack.Children.Count());
@@ -29,8 +28,7 @@ namespace Nullify.tests
         [Fact]
         public void WhenHasComplexCircular_ShouldBeKo()
         {
-            var stack = new DependencyWalker(typeof(IComplexCircularFirstLevel));
-            stack.Walk();
+            var stack = DependencyStack.Enumerate(typeof(ITwoLevelsDepsFirstLevel));
 
             Assert.True(stack.IsCircular);
             Assert.Equal(0, stack.Children.Count());
@@ -39,8 +37,7 @@ namespace Nullify.tests
         [Fact]
         public void WhenHasMixedCircular_ShouldBeKo()
         {
-            var stack = new DependencyWalker(typeof(IMixedCircularFirstLevel));
-            stack.Walk();
+            var stack = DependencyStack.Enumerate(typeof(IComplexFirstLevel));
 
             Assert.True(stack.IsCircular);
             Assert.Equal(0, stack.Children.Count());

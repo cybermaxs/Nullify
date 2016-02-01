@@ -35,20 +35,24 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\IMemberSetup.cs" />
+    <Compile Include="Configuration\IPolicyRepository.cs" />
     <Compile Include="Configuration\CreationPolicy.cs" />
     <Compile Include="Configuration\FluentTypeSetup.cs" />
     <Compile Include="Configuration\IFluentTypeSetup.cs" />
-    <Compile Include="Configuration\IMemberSetup.cs" />
     <Compile Include="Configuration\MemberSetup.cs" />
-    <Compile Include="Configuration\SetupRepository.cs" />
+    <Compile Include="Configuration\PolicyRepository.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="DependencyWalker.cs" />
-    <Compile Include="Null.cs" />
+    <Compile Include="Factory\CreationScope.cs" />
+    <Compile Include="Factory\ICreationScope.cs" />
+    <Compile Include="Utils\DependencyStack.cs" />
+    <Compile Include="Factory\NullifiedBuilder.cs" />
+    <Compile Include="Factory\ITypeRegistry.cs" />
+    <Compile Include="Nullified.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeFactory.cs" />
-    <Compile Include="TypeRegistry.cs" />
+    <Compile Include="Factory\TypeFactory.cs" />
+    <Compile Include="Factory\TypeRegistry.cs" />
     <Compile Include="Utils\ILGen.cs" />
-    <Compile Include="Utils\TypeDependency.cs" />
     <Compile Include="Utils\TypeUtils.cs" />
   </ItemGroup>
   <ItemGroup>

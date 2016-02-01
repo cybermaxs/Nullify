@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Nullify.Tests.Interfaces
+﻿namespace Nullify.Tests.Interfaces
 {
     public interface IBasicIndexers
     {

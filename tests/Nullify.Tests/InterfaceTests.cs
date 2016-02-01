@@ -1,5 +1,4 @@
 ﻿using Nullify.Tests.Interfaces;
-using System;
 using System.Linq;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace Nullify.Tests
         [Fact]
         public void IBasicProperties_ShouldNotBeNullAndThrowException()
         {
-            var p = Null.Of<IBasicProperties>().Create();
+            var p = Nullified.Of<IBasicProperties>().Create();
             Assert.NotNull(p);
 
             var ex = Record.Exception(() =>
@@ -29,7 +28,7 @@ namespace Nullify.Tests
         [Fact]
         public void IBasicEvents_ShouldNotBeNullAndThrowException()
         {
-            var e = Null.Of<IBasicEvents>().Create();
+            var e = Nullified.Of<IBasicEvents>().Create();
             Assert.NotNull(e);
 
             var ex = Record.Exception(() =>
@@ -46,7 +45,7 @@ namespace Nullify.Tests
         [Fact]
         public void IBasicMethods_ShouldNotBeNullAndThrowException()
         {
-            var m = Null.Of<IBasicMethods>().Create();
+            var m = Nullified.Of<IBasicMethods>().Create();
             Assert.NotNull(m);
 
             var ex = Record.Exception(() =>
