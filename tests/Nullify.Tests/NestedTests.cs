@@ -6,7 +6,7 @@ namespace Nullify.Tests
     public class NestedTests
     {
         [Fact]
-        public void BasicCreate()
+        public void WhenNestedTypesAndNoConfig_ShouldCreateAll()
         {
             var l1 = Nullified.Of<INestFirstLevel>()
                 .Create();

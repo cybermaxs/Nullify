@@ -20,7 +20,7 @@ namespace Nullify.Tests
     {
         int MyProp { get; set; }
     }
-    public class NullTests
+    public class NullifiedTests
     {
         [Fact]
         public void Simple_Create()

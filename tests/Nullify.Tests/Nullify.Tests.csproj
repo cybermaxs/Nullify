@@ -59,7 +59,7 @@
     <Compile Include="InterfaceTests.cs" />
     <Compile Include="NativeInterfacesTests.cs" />
     <Compile Include="NestedTests.cs" />
-    <Compile Include="NullTests.cs" />
+    <Compile Include="NullifiedTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupTests.cs" />
     <Compile Include="TestInterfaces\IBasicEvents.cs" />

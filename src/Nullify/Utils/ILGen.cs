@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 
 namespace Nullify.Utils
 {
-    [ExcludeFromCodeCoverage]
     //http://referencesource.microsoft.com/#System.Core/Microsoft/Scripting/Compiler/ILGen.cs,bd2006896de520e0
     public static class ILGen
     {
@@ -97,39 +95,13 @@ namespace Nullify.Utils
                 return;
             }
 
-            // Check for a few more types that we support emitting as constants
-            //Type t = value as Type;
-            //if (t != null && ShouldLdtoken(t))
-            //{
-            //    il.EmitType(t);
-            //    if (type != typeof(Type))
-            //    {
-            //        il.Emit(OpCodes.Castclass, type);
-            //    }
-            //    return;
-            //}
-
-            //MethodBase mb = value as MethodBase;
-            //if (mb != null && ShouldLdtoken(mb))
-            //{
-            //    il.Emit(OpCodes.Ldtoken, mb);
-            //    Type dt = mb.DeclaringType;
-            //    if (dt != null && dt.IsGenericType)
-            //    {
-            //        il.Emit(OpCodes.Ldtoken, dt);
-            //        il.Emit(OpCodes.Call, typeof(MethodBase).GetMethod("GetMethodFromHandle", new Type[] { typeof(RuntimeMethodHandle), typeof(RuntimeTypeHandle) }));
-            //    }
-            //    else {
-            //        il.Emit(OpCodes.Call, typeof(MethodBase).GetMethod("GetMethodFromHandle", new Type[] { typeof(RuntimeMethodHandle) }));
-            //    }
-            //    if (type != typeof(MethodBase))
-            //    {
-            //        il.Emit(OpCodes.Castclass, type);
-            //    }
-            //    return;
-            //}
-
             throw new InvalidOperationException("Unreachable");
+        }
+
+        internal static void EmitType(this ILGenerator il, Type type)
+        {
+            il.Emit(OpCodes.Ldtoken, type);
+            il.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
         }
 
         #region Constants
@@ -268,6 +240,13 @@ namespace Nullify.Utils
             il.Emit(OpCodes.Ldc_R4, value);
         }
 
+        internal static void EmitDateTime(this ILGenerator il, DateTime value)
+        {
+            il.Emit(OpCodes.Ldc_I8, value.Ticks);
+            il.Emit(OpCodes.Newobj,
+              typeof(DateTime).GetConstructor(new[] { typeof(long) }));
+        }
+
         // matches TryEmitConstant
         internal static bool CanEmitConstant(object value, Type type)
         {
@@ -275,18 +254,6 @@ namespace Nullify.Utils
             {
                 return true;
             }
-
-            //Type t = value as Type;
-            //if (t != null && ShouldLdtoken(t))
-            //{
-            //    return true;
-            //}
-
-            //MethodBase mb = value as MethodBase;
-            //if (mb != null && ShouldLdtoken(mb))
-            //{
-            //    return true;
-            //}
 
             return false;
         }
@@ -310,6 +277,7 @@ namespace Nullify.Utils
                 case TypeCode.UInt64:
                 case TypeCode.Decimal:
                 case TypeCode.String:
+                case TypeCode.DateTime:
                     return true;
             }
             return false;
@@ -366,6 +334,9 @@ namespace Nullify.Utils
                     return true;
                 case TypeCode.String:
                     il.EmitString((string)value);
+                    return true;
+                case TypeCode.DateTime:
+                    il.EmitDateTime((DateTime)value);
                     return true;
                 default:
                     return false;
