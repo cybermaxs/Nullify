@@ -33,7 +33,7 @@ namespace Nullify.Factory
             var deps = DependencyStack.Enumerate(policy.Target);
 
             // build dependencies (nested types)
-            using (var scope = new CreationScope(policy.Name, registry))
+            using (var scope = new CreationScope(registry))
             {
 
                 var typeFactory = new TypeFactory(scope, registry);

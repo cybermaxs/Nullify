@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 
 namespace Nullify.Utils
 {
+    [ExcludeFromCodeCoverage]
     //http://referencesource.microsoft.com/#System.Core/Microsoft/Scripting/Compiler/ILGen.cs,bd2006896de520e0
     public static class ILGen
     {

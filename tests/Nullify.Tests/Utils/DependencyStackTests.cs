@@ -3,7 +3,7 @@ using Nullify.Utils;
 using System.Linq;
 using Xunit;
 
-namespace Nullify.tests
+namespace Nullify.Tests.Utils
 {
     public class DependencyStackTests
     {
@@ -13,6 +13,7 @@ namespace Nullify.tests
             var stack = DependencyStack.Enumerate(typeof(INestFirstLevel));
 
             Assert.False(stack.IsCircular);
+            Assert.True(stack.HasChildren);
             Assert.True(stack.Children.Count() > 0);
         }
 
@@ -22,6 +23,7 @@ namespace Nullify.tests
             var stack = DependencyStack.Enumerate(typeof(IDirectDepFirstLevel));
 
             Assert.True(stack.IsCircular);
+            Assert.False(stack.HasChildren);
             Assert.Equal(0, stack.Children.Count());
         }
 
@@ -31,6 +33,7 @@ namespace Nullify.tests
             var stack = DependencyStack.Enumerate(typeof(ITwoLevelsDepsFirstLevel));
 
             Assert.True(stack.IsCircular);
+            Assert.False(stack.HasChildren);
             Assert.Equal(0, stack.Children.Count());
         }
 
@@ -40,6 +43,7 @@ namespace Nullify.tests
             var stack = DependencyStack.Enumerate(typeof(IComplexFirstLevel));
 
             Assert.True(stack.IsCircular);
+            Assert.False(stack.HasChildren);
             Assert.Equal(0, stack.Children.Count());
         }
     }

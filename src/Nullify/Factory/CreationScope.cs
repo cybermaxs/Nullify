@@ -7,13 +7,10 @@ namespace Nullify.Factory
     class CreationScope : IDisposable, ICreationScope
     {
         private readonly ITypeRegistry typeRegistry;
-
-        public string Id { get; set; }
         public IList<Type> PinnedTypes { get; set; }
 
-        public CreationScope(string id, ITypeRegistry typeRegistry)
+        public CreationScope(ITypeRegistry typeRegistry)
         {
-            Id = id;
             PinnedTypes = new List<Type>();
             this.typeRegistry = typeRegistry;
         }
@@ -26,16 +23,6 @@ namespace Nullify.Factory
         public void Attach(Type type)
         {
             PinnedTypes.Add(type);
-        }
-
-        public bool Has(Type interfaceType)
-        {
-            //look in created types
-            if (PinnedTypes.Contains(interfaceType))
-                return true;
-
-            //else look up in registry
-            return false;
         }
 
         public bool TryGet(Type interfaceType, string className, out Type returnType)
